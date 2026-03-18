@@ -63,22 +63,22 @@ The project follows a clean separation of concerns:
 
 ### 🔐 Authentication Suite (Project Code: SCEE)
 
-* **C1: Standard User Login**
+* **SCEE-1: Standard User Login**
   * **Objective**: Validate the primary "Happy Path" for user entry.
   * **Technical Implementation**: Utilized `page.getByTestId()` for resilient locators. Verified state transition via URL regex matching.
   * **Status**: 🟢 **Complete**
 
-* **C2: Locked Out User**
+* **SCEE-2: Locked Out User**
   * **Objective**: Verify the application handles unauthorized access gracefully.
   * **Technical Implementation**: Used Web-First Assertions (`toContainText`) to validate dynamic error messages without brittle `hard-waits`.
   * **Status**: 🟢 **Complete**
 
-* **C3: Successful User Logout**
+* **SCEE-3: Successful User Logout**
   * **Objective**: Ensure session termination and redirection from the Inventory page.
   * **Technical Implementation**: Demonstrated **POM Inheritance**. Called the `logout()` method inherited from `BasePage` to handle the multi-step sidebar interaction.
   * **Status**: 🟢 **Complete**
 
-* **C18: UI Anomalies (Problem User)**
+* **SCEE-18: UI Anomalies (Problem User)**
   * **Objective**: Detect visual regressions and broken image assets.
   * **Technical Implementation**: Used `getByTestId('inventory-item')` combined with `.filter({ hasText: '...' })` and `getByRole('img')` to avoid brittle CSS selectors.
 
@@ -87,8 +87,8 @@ The project follows a clean separation of concerns:
     * **Failure Management**: Implemented `test.fail()` to explicitly mark this as a **Known Bug**. This ensures the suite remains green while documenting that the application is not currently meeting the expected image source requirements.
   * **Status**: 🟢 **Complete (Marked as Known Failure)**
 
-* **C19: Functional Failures (Error User)**
+* **SCEE-19: Functional Failures (Error User)**
 
   * **Objective**: Identify "silent" failures where UI actions do not trigger the expected state change.
-  * **Technical Implementation**: Will focus on state verification, ensuring cart counts and buttons behave correctly under error conditions.
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**: Used `test.fail()` to document known functional bugs. Implemented `getButtonByProductName()` to encapsulate the `filter` and `getByRole` logic for cleaner, multi-product assertions.
+  * **Status**: 🟢 **Complete (Marked as Known Failure)**

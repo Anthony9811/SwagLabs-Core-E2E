@@ -33,13 +33,24 @@ test.describe('Authentication Suite', () => {
   test('SCEE-18: should verify ui anomalies with problem user', async ({ page }) => {
     test.fail();
     await loginPage.login('problem_user', 'secret_sauce');
-    
+
     const backpackImage = page
-    .getByTestId('inventory-item')
-    .filter({ hasText: 'Sauce Labs Backpack' })
-    .getByRole('img');
+      .getByTestId('inventory-item')
+      .filter({ hasText: 'Sauce Labs Backpack' })
+      .getByRole('img');
 
     const imageSource = await backpackImage.getAttribute('src');
     expect(imageSource).toContain('/static/media/sauce-backpack-1200x1500.0a0b85a385945026062b.jpg');
   });
+
+  test('SCEE-19: should verify functional failures with error user', async ({ page }) => {
+    test.fail();
+    await loginPage.login('error_user', 'secret_sauce');
+
+    await inventoryPage.addProductToCart('Sauce Labs Backpack');
+    await expect(inventoryPage.getButtonByProductName('Sauce Labs Backpack')).toBeVisible();
+
+    await inventoryPage.addProductToCart('Sauce Labs Fleece Jacket');
+    await expect(inventoryPage.getButtonByProductName('Sauce Labs Fleece Jacket')).toBeVisible();
+  })
 });
