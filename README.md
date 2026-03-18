@@ -80,8 +80,12 @@ The project follows a clean separation of concerns:
 
 * **C18: UI Anomalies (Problem User)**
   * **Objective**: Detect visual regressions and broken image assets.
-  * **Technical Implementation**: Will implement logic to verify the `src` attributes of product images and detect known "glitch" patterns.
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**: Used `getByTestId('inventory-item')` combined with `.filter({ hasText: '...' })` and `getByRole('img')` to avoid brittle CSS selectors.
+
+    * **Validation Logic**: Chose **Attribute Inspection** over pixel-comparison. This is significantly faster, less flaky, and allows the test to run across different resolutions or environments while still catching the underlying data failure.
+
+    * **Failure Management**: Implemented `test.fail()` to explicitly mark this as a **Known Bug**. This ensures the suite remains green while documenting that the application is not currently meeting the expected image source requirements.
+  * **Status**: 🟢 **Complete (Marked as Known Failure)**
 
 * **C19: Functional Failures (Error User)**
 

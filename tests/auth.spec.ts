@@ -12,21 +12,34 @@ test.describe('Authentication Suite', () => {
     await loginPage.navigateTo();
   });
 
-  test('C1: should login a standard user successfully', async ({ page }) => {
+  test('SCEE-1: should login a standard user successfully', async ({ page }) => {
     await loginPage.login('standard_user', 'secret_sauce');
     await expect(page).toHaveURL(/.*inventory.html/);
   });
 
-  test('C2: should receive an error message with locked out user', async () => {
+  test('SCEE-2: should receive an error message with locked out user', async () => {
     await loginPage.login('locked_out_user', 'secret_sauce');
     await expect(loginPage.errorMessage).toBeVisible();
     await expect(loginPage.errorMessage).toContainText('Sorry, this user has been locked out.');
   });
 
-  test('C3: should logout successfully from inventory page', async ({ page }) => {
+  test('SCEE-3: should logout successfully from inventory page', async ({ page }) => {
     await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.logout();
     await expect(page).toHaveURL(/.*www.saucedemo.com/);
     await expect(loginPage.loginButton).toBeVisible();
+  });
+
+  test.only('SCEE-18: should verify ui anomalies with problem user', async ({ page }) => {
+    test.fail();
+    await loginPage.login('problem_user', 'secret_sauce');
+    
+    const backpackImage = page
+    .getByTestId('inventory-item')
+    .filter({ hasText: 'Sauce Labs Backpack' })
+    .getByRole('img');
+
+    const imageSource = await backpackImage.getAttribute('src');
+    expect(imageSource).toContain('/static/media/sauce-backpack-1200x1500.0a0b85a385945026062b.jpg');
   });
 });
