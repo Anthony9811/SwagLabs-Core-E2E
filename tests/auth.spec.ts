@@ -30,7 +30,7 @@ test.describe('Authentication Suite', () => {
     await expect(loginPage.loginButton).toBeVisible();
   });
 
-  test.only('SCEE-18: should verify ui anomalies with problem user', async ({ page }) => {
+  test('SCEE-18: should verify ui anomalies with problem user', async ({ page }) => {
     test.fail();
     await loginPage.login('problem_user', 'secret_sauce');
     
