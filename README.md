@@ -75,8 +75,8 @@ The project follows a clean separation of concerns:
 
 * **C3: Successful User Logout**
   * **Objective**: Ensure session termination and redirection from the Inventory page.
-  * **Technical Implementation**: Demonstrates **POM Inheritance**. Will utilize the `logout()` method from `BasePage` to interact with shared sidebar components.
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**: Demonstrated **POM Inheritance**. Called the `logout()` method inherited from `BasePage` to handle the multi-step sidebar interaction.
+  * **Status**: 🟢 **Complete**
 
 * **C18: UI Anomalies (Problem User)**
   * **Objective**: Detect visual regressions and broken image assets.

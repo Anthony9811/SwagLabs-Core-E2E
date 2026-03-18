@@ -9,10 +9,10 @@ export class BasePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.cartBadge = page.getByTestId('shopping_cart_badge');
-    this.menuButton = page.getByRole('button', { name: 'Open Menu' }); //might fail due to name, test pending
-    this.logoutLink = page.getByTestId('logout_sidebar_link');
-    this.allItemsLink = page.getByTestId('inventory_sidebar_link');
+    this.cartBadge = page.getByTestId('shopping-cart-badge');
+    this.menuButton = page.getByRole('button', { name: 'Open Menu' });
+    this.logoutLink = page.getByTestId('logout-sidebar-link');
+    this.allItemsLink = page.getByTestId('inventory-sidebar-link');
   }
 
   async logout() {
