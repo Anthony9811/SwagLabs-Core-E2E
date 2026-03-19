@@ -105,7 +105,9 @@ The project follows a clean separation of concerns:
 
   * **Objective**: Validate that selecting "Price (low to high)" correctly reorders the product grid with the first item at $7.99 and the last at $49.99.
 
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**: Used `.selectOption()` for sorting and encapsulated price retrieval in the POM via `getProductPriceByIndex()`. Performed index-based assertions to verify the $7.99 and $49.99 price boundaries.
+
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-6: View individual product details**
 
