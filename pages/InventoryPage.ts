@@ -28,6 +28,12 @@ export class InventoryPage extends BasePage {
     await this.productSort.selectOption(option);
   }
 
+  async openProductDetails(productName: string) {
+    this.inventoryItems.filter({ hasText: productName })
+      .getByTestId('inventory-item-name')
+      .click();
+  }
+
   getItemPriceByIndex(index: number){
     return this.inventoryItems.nth(index).getByTestId('inventory-item-price');
   }

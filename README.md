@@ -113,7 +113,10 @@ The project follows a clean separation of concerns:
 
   * **Objective**: Verify that clicking a product name redirects to the correct details page with matching name and price data.
 
-  * **Status**: 🟡 **Pending**
+  * **Technical Challenge & Solution:** Initial URL assertions failed due to the `?` character in the query string (`?id=4`) being interpreted as a Regex quantifier.
+    * **Solution**: Escaped the reserved character (`\?`) and utilized the `\d+` wildcard to ensure the test remains valid regardless of which specific product ID is being tested.
+
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-7: Reset application state via sidebar**
 
