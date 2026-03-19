@@ -93,7 +93,7 @@ The project follows a clean separation of concerns:
   * **Technical Implementation**: Used `test.fail()` to document known functional bugs. Implemented `getButtonByProductName()` to encapsulate the `filter` and `getByRole` logic for cleaner, multi-product assertions.
   * **Status**: 🟢 **Complete (Marked as Known Failure)**
 
-  ### 🔐 Product Inventory Suite (Project Code: SCEE)
+### 🔐 Product Inventory Suite (Project Code: SCEE)
 
   * **SCEE-4: Verify total product count on inventory page**
 
