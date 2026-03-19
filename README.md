@@ -109,12 +109,42 @@ The project follows a clean separation of concerns:
 
 * **SCEE-6: View individual product details**
 
-* **Objective**: Verify that clicking a product name redirects to the correct details page with matching name and price data.
+  * **Objective**: Verify that clicking a product name redirects to the correct details page with matching name and price data.
 
-* **Status**: 🟡 **Pending**
+  * **Status**: 🟡 **Pending**
 
 * **SCEE-7: Reset application state via sidebar**
 
   * **Objective**: Validate that the "Reset App State" functionality clears the shopping cart and resets the UI without requiring a logout.
+
+  * **Status**: 🟡 **Pending**
+  
+* **SCEE-8: Verify Twitter social link in footer**
+
+  * **Objective**: Ensure the Twitter icon correctly opens a new tab pointing to the official Sauce Labs social page.
+
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-16: Verify "Back to products" button functionality**
+
+  * **Objective**: Validate that the navigation link on the product detail page correctly returns the user to the main inventory list.
+
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-17: Verify Burger Menu functionality in mobile viewport**
+
+  * **Objective**: Ensure the navigation menu is accessible, interactive, and can be closed when the application is viewed on a mobile-sized screen.
+
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-20: Verify sorting failure with Problem User**
+
+  * **Objective**: Document the functional bug where the "Sort" dropdown fails to reorder items for the problem_user.
+
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-22: Verify broken links on Product Detail page**
+
+  * **Objective**: Validate that certain product links redirect to incorrect pages or "404" states when using the problem_user account.
 
   * **Status**: 🟡 **Pending**
