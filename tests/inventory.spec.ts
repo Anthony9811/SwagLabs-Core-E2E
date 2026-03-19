@@ -29,7 +29,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(inventoryPage.getItemPriceByIndex(5)).toHaveText('$49.99');
   });
 
-  test.only('SCEE-6: should open an individual product details from inventory', async ({ page }) => {
+  test('SCEE-6: should open an individual product details from inventory', async ({ page }) => {
     const productName = "Sauce Labs Backpack";
 
     await loginPage.login('standard_user', 'secret_sauce');
