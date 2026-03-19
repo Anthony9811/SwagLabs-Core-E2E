@@ -92,3 +92,29 @@ The project follows a clean separation of concerns:
   * **Objective**: Identify "silent" failures where UI actions do not trigger the expected state change.
   * **Technical Implementation**: Used `test.fail()` to document known functional bugs. Implemented `getButtonByProductName()` to encapsulate the `filter` and `getByRole` logic for cleaner, multi-product assertions.
   * **Status**: 🟢 **Complete (Marked as Known Failure)**
+
+  ### 🔐 Product Inventory Suite (Project Code: SCEE)
+
+  * **SCEE-4: Verify total product count on inventory page**
+
+  * **Objective**: Ensure the product grid correctly loads all items from the database.
+  * **Technical Implementation**: Utilized the `inventoryItem` locator within a `standard_user` session to perform a `.toHaveCount(6)` assertion. Established a `beforeEach` hook for consistent Page Object instantiation.
+  * **Status**: 🟢 **Complete**
+
+* **SCEE-5: Sort products by price in ascending order**
+
+  * **Objective**: Validate that selecting "Price (low to high)" correctly reorders the product grid with the first item at $7.99 and the last at $49.99.
+
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-6: View individual product details**
+
+* **Objective**: Verify that clicking a product name redirects to the correct details page with matching name and price data.
+
+* **Status**: 🟡 **Pending**
+
+* **SCEE-7: Reset application state via sidebar**
+
+  * **Objective**: Validate that the "Reset App State" functionality clears the shopping cart and resets the UI without requiring a logout.
+
+  * **Status**: 🟡 **Pending**
