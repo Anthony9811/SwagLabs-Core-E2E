@@ -24,6 +24,7 @@ This project utilizes GitHub Actions to ensure code quality and cross-browser co
 * **Language**: TypeScript
 * **Framework**: Playwright Test
 * **Pattern**: Page Object Model (POM)
+* **Test Management**: QASE
 * **Target Site**: [SauceLabs SwagLabs](https://www.saucedemo.com)
 
 # 📂 Project Structure
