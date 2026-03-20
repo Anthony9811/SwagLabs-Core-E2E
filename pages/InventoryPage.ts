@@ -14,7 +14,7 @@ export class InventoryPage extends BasePage {
   async addProductToCart(productName: string) {
     this.inventoryItems.filter({ hasText: productName })
       .getByRole('button', { name: 'Add to cart' })
-      .click();
+      .click({ force: true });
   }
 
   /**
@@ -24,7 +24,7 @@ export class InventoryPage extends BasePage {
    * @param: 'lohi' - Price (low to high)
    * @param: 'hilo' - Price (high to low)
   */
-  async sortBy(option: string){ 
+  async sortBy(option: string) {
     await this.productSort.selectOption(option);
   }
 
@@ -34,15 +34,15 @@ export class InventoryPage extends BasePage {
       .click();
   }
 
-  getItemPriceByIndex(index: number){
+  getItemPriceByIndex(index: number) {
     return this.inventoryItems.nth(index).getByTestId('inventory-item-price');
   }
 
-  getButtonByProductName(productName: string) {
+  getRemoveButtonByProductName(productName: string) {
     return this.inventoryItems
       .filter({ hasText: productName })
       .getByRole('button', { name: /remove/i }) //The i is to ignore whether it's uppercase or lowercase
   }
 
-  
+
 }

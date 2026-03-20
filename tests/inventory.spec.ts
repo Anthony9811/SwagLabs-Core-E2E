@@ -43,4 +43,15 @@ test.describe('Product Inventory Suite', () => {
     await expect(productDetailsPage.itemName).toHaveText(productName);
     await expect(productDetailsPage.itemPrice).toHaveText('$29.99');
   });
+
+  test('SCEE-7: should reset app state via sidebar menu', async ({ page }) => {
+    await loginPage.login('standard_user', 'secret_sauce');
+    await inventoryPage.addProductToCart('Sauce Labs Backpack');
+
+    await expect(inventoryPage.cartBadgeNumber).toBeVisible();
+
+    await inventoryPage.resetAppState();
+
+    await expect(inventoryPage.cartBadgeNumber).toBeHidden();
+  });
 })

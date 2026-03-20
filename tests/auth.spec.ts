@@ -48,9 +48,9 @@ test.describe('Authentication Suite', () => {
     await loginPage.login('error_user', 'secret_sauce');
 
     await inventoryPage.addProductToCart('Sauce Labs Backpack');
-    await expect(inventoryPage.getButtonByProductName('Sauce Labs Backpack')).toBeVisible();
+    await expect(inventoryPage.getRemoveButtonByProductName('Sauce Labs Backpack')).toBeVisible();
 
     await inventoryPage.addProductToCart('Sauce Labs Fleece Jacket');
-    await expect(inventoryPage.getButtonByProductName('Sauce Labs Fleece Jacket')).toBeVisible();
+    await expect(inventoryPage.getRemoveButtonByProductName('Sauce Labs Fleece Jacket')).toBeVisible();
   })
 });

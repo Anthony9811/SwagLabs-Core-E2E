@@ -122,7 +122,10 @@ The project follows a clean separation of concerns:
 
   * **Objective**: Validate that the "Reset App State" functionality clears the shopping cart and resets the UI without requiring a logout.
 
-  * **Status**: 🟡 **Pending**
+  * **Technical Challenge & Solution:** Cross-browser (Firefox/WebKit) failures where the item wasn't added to the cart before the sidebar opened.
+    * **Solution**: Implemented a "State Buffer" by asserting the `cartBadgeNumber` is visible before triggering the reset. This ensures the "Add to cart" action is fully processed by the application's state manager before the UI is manipulated further.
+
+  * **Status**: 🟢 **Complete**
   
 * **SCEE-8: Verify Twitter social link in footer**
 
