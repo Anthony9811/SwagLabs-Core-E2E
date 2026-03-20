@@ -26,8 +26,10 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-     baseURL: 'https://www.saucedemo.com',
-     testIdAttribute: 'data-test',
+    baseURL: 'https://www.saucedemo.com',
+    testIdAttribute: 'data-test',
+    navigationTimeout: 45000, // Increase slightly for slower engines
+    actionTimeout: 15000,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',

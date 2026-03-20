@@ -54,4 +54,15 @@ test.describe('Product Inventory Suite', () => {
 
     await expect(inventoryPage.cartBadgeNumber).toBeHidden();
   });
+
+  test('SCEE-8: should verify twitter social link in footer', async ({ page, context }) => {
+    const newTabPromise = context.waitForEvent('page');
+
+    await loginPage.login('standard_user', 'secret_sauce');
+    await inventoryPage.goToSocials('twitter');
+
+    const newTab = await newTabPromise;
+
+    await expect(newTab).toHaveURL('https://x.com/saucelabs');
+  })
 })

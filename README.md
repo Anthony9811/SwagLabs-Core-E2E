@@ -131,7 +131,11 @@ The project follows a clean separation of concerns:
 
   * **Objective**: Ensure the Twitter icon correctly opens a new tab pointing to the official Sauce Labs social page.
 
-  * **Status**: 🟡 **Pending**
+  * Technical Implementation: Utilized a dynamic `goToSocials()` method using `getByTestId` for clean, decoupled locators.
+
+    * Handled asynchronous tab creation using Playwright’s `Promise` pattern for browser contexts.
+
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-16: Verify "Back to products" button functionality**
 

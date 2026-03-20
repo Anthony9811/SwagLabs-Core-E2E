@@ -29,7 +29,8 @@ export class InventoryPage extends BasePage {
   }
 
   async openProductDetails(productName: string) {
-    this.inventoryItems.filter({ hasText: productName })
+    this.inventoryItems
+      .filter({ hasText: productName })
       .getByTestId('inventory-item-name')
       .click();
   }

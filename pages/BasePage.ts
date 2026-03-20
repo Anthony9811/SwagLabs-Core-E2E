@@ -9,6 +9,7 @@ export class BasePage {
   private readonly resetAppStateLink;
   readonly cartBadgeNumber;
 
+
   constructor(page: Page) {
     this.page = page;
     this.cartBadge = page.getByTestId('shopping-cart-badge');
@@ -31,5 +32,13 @@ export class BasePage {
   async resetAppState() {
     await this.menuButton.click();
     await this.resetAppStateLink.click();
+  }
+
+  /**
+   * 
+   * @param socialNetwork - Expects 'twitter', 'facebook', or 'linkedin' to match data-test IDs.
+   */
+  async goToSocials(socialNetwork: string) {
+    await this.page.getByTestId(`social-${socialNetwork}`).click();
   }
 }
