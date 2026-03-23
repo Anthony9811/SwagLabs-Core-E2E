@@ -150,13 +150,13 @@ The project follows a clean separation of concerns:
 
     * Validated successful navigation by asserting the existence of the "Products" page title.
 
-  * **Status**: 🟢 Complete
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-17: Verify Burger Menu functionality in mobile viewport**
 
   * **Objective**: Ensure the navigation menu is accessible, interactive, and can be closed when the application is viewed on a mobile-sized screen.
 
-  * **Status**: 🟡 **Pending**
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-20: Verify sorting failure with Problem User**
 

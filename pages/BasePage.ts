@@ -7,6 +7,7 @@ export class BasePage {
   readonly logoutLink;
   readonly allItemsLink;
   readonly cartBadgeNumber;
+  readonly closeMenuButton;
   private readonly resetAppStateLink;
   private readonly backToProductsButton; 
 
@@ -20,6 +21,7 @@ export class BasePage {
     this.resetAppStateLink = page.getByTestId('reset-sidebar-link');
     this.cartBadgeNumber = page.getByTestId('shopping-cart-badge');
     this.backToProductsButton = page.getByTestId('back-to-products');
+    this.closeMenuButton = page.locator('#react-burger-cross-btn');
   }
 
   async logout() {
@@ -38,6 +40,14 @@ export class BasePage {
 
   async backToProducts() {
     await this.backToProductsButton.click();
+  }
+
+  async openMenu() {
+    await this.menuButton.click();
+  }
+
+  async closeMenu() {
+    await this.closeMenuButton.click();
   }
 
   /**

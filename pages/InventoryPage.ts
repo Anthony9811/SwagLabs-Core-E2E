@@ -14,7 +14,7 @@ export class InventoryPage extends BasePage {
   }
 
   async addProductToCart(productName: string) {
-    this.inventoryItems.filter({ hasText: productName })
+    await this.inventoryItems.filter({ hasText: productName })
       .getByRole('button', { name: 'Add to cart' })
       .click({ force: true });
   }
@@ -46,6 +46,4 @@ export class InventoryPage extends BasePage {
       .filter({ hasText: productName })
       .getByRole('button', { name: /remove/i }) //The i is to ignore whether it's uppercase or lowercase
   }
-
-
 }

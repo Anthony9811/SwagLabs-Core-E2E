@@ -77,4 +77,17 @@ test.describe('Product Inventory Suite', () => {
     await expect(page).toHaveURL(/.*inventory.html/);
     await expect(inventoryPage.pageTitle).toHaveText('Products');
   });
+
+  test('SCEE-17: should verify burger menu functionality in mobile viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    
+    await loginPage.login('standard_user', 'secret_sauce');
+    await inventoryPage.openMenu();
+
+    await expect(inventoryPage.logoutLink).toBeVisible();
+
+    await inventoryPage.closeMenu();
+    
+    await expect(inventoryPage.pageTitle).toHaveText('Products');
+  })
 })
