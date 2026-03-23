@@ -8,20 +8,24 @@ test.describe('Product Inventory Suite', () => {
   let inventoryPage: InventoryPage;
   let productDetailsPage: ProductDetailPage;
 
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page }, testInfo) => {
     loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
     productDetailsPage = new ProductDetailPage(page);
     await loginPage.navigateTo();
+
+    const skipStandardLogin = testInfo.title.includes('SCEE-22') || testInfo.title.includes('SCEE-20');
+
+    if (!skipStandardLogin) {
+        await loginPage.login('standard_user', 'secret_sauce');
+    }
   });
 
   test('SCEE-4: should verify total product count on inventory page', async ({ page }) => {
-    await loginPage.login('standard_user', 'secret_sauce');
     await expect(inventoryPage.inventoryItems).toHaveCount(6);
   });
 
   test('SCEE-5: should sort products by price in ascending order', async ({ page }) => {
-    await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.sortBy('lohi');
 
     await expect(inventoryPage.getItemPriceByIndex(0)).toHaveText('$7.99');
@@ -32,7 +36,6 @@ test.describe('Product Inventory Suite', () => {
   test('SCEE-6: should open an individual product details from inventory', async ({ page }) => {
     const productName = "Sauce Labs Backpack";
 
-    await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.openProductDetails(productName);
 
     /**
@@ -45,7 +48,6 @@ test.describe('Product Inventory Suite', () => {
   });
 
   test('SCEE-7: should reset app state via sidebar menu', async ({ page }) => {
-    await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.addProductToCart('Sauce Labs Backpack');
 
     await expect(inventoryPage.cartBadgeNumber).toBeVisible();
@@ -58,7 +60,6 @@ test.describe('Product Inventory Suite', () => {
   test('SCEE-8: should verify twitter social link in footer', async ({ page, context }) => {
     const newTabPromise = context.waitForEvent('page');
 
-    await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.goToSocials('twitter');
 
     const newTab = await newTabPromise;
@@ -69,7 +70,6 @@ test.describe('Product Inventory Suite', () => {
   test('SCEE-16: should verify "Back to products" button functionality', async ({ page }) => {
     const productName = "Sauce Labs Backpack";
 
-    await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.openProductDetails(productName);
 
     await productDetailsPage.backToProducts();
@@ -81,7 +81,6 @@ test.describe('Product Inventory Suite', () => {
   test('SCEE-17: should verify burger menu functionality in mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
 
-    await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.openMenu();
 
     await expect(inventoryPage.logoutLink).toBeVisible();
