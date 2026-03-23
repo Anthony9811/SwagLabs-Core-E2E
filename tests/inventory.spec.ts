@@ -74,7 +74,7 @@ test.describe('Product Inventory Suite', () => {
 
     await productDetailsPage.backToProducts();
 
-    await expect(page).toHaveURL(/.*inventory-item.html/);
+    await expect(page).toHaveURL(/.*inventory.html/);
     await expect(inventoryPage.pageTitle).toHaveText('Products');
   });
 })
