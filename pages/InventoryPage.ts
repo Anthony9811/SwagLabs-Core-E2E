@@ -4,11 +4,13 @@ import { BasePage } from "./BasePage";
 export class InventoryPage extends BasePage {
   readonly inventoryItems;
   readonly productSort;
+  readonly pageTitle;
 
   constructor(page: Page) {
     super(page);
     this.inventoryItems = page.getByTestId('inventory-item');
     this.productSort = page.getByTestId('product-sort-container');
+    this.pageTitle = page.getByTestId('title');
   }
 
   async addProductToCart(productName: string) {

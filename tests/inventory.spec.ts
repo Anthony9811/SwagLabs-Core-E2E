@@ -64,5 +64,17 @@ test.describe('Product Inventory Suite', () => {
     const newTab = await newTabPromise;
 
     await expect(newTab).toHaveURL('https://x.com/saucelabs');
-  })
+  });
+
+  test('SCEE-16: should verify "Back to products" button functionality', async ({ page }) => {
+    const productName = "Sauce Labs Backpack";
+
+    await loginPage.login('standard_user', 'secret_sauce');
+    await inventoryPage.openProductDetails(productName);
+
+    await productDetailsPage.backToProducts();
+
+    await expect(page).toHaveURL(/.*inventory-item.html/);
+    await expect(inventoryPage.pageTitle).toHaveText('Products');
+  });
 })

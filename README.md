@@ -142,7 +142,15 @@ The project follows a clean separation of concerns:
 
   * **Objective**: Validate that the navigation link on the product detail page correctly returns the user to the main inventory list.
 
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**:
+
+    * Implemented `openProductDetails()` and `backToProducts()` methods within the POM architecture.
+
+    * Used a robust regex assertion `/.*inventory-item.html/` to verify the destination URL.
+
+    * Validated successful navigation by asserting the existence of the "Products" page title.
+
+  * **Status**: 🟢 Complete
 
 * **SCEE-17: Verify Burger Menu functionality in mobile viewport**
 

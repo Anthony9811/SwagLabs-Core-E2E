@@ -6,8 +6,9 @@ export class BasePage {
   readonly menuButton;
   readonly logoutLink;
   readonly allItemsLink;
-  private readonly resetAppStateLink;
   readonly cartBadgeNumber;
+  private readonly resetAppStateLink;
+  private readonly backToProductsButton; 
 
 
   constructor(page: Page) {
@@ -18,6 +19,7 @@ export class BasePage {
     this.allItemsLink = page.getByTestId('inventory-sidebar-link');
     this.resetAppStateLink = page.getByTestId('reset-sidebar-link');
     this.cartBadgeNumber = page.getByTestId('shopping-cart-badge');
+    this.backToProductsButton = page.getByTestId('back-to-products');
   }
 
   async logout() {
@@ -32,6 +34,10 @@ export class BasePage {
   async resetAppState() {
     await this.menuButton.click();
     await this.resetAppStateLink.click();
+  }
+
+  async backToProducts() {
+    this.backToProductsButton.click();
   }
 
   /**
