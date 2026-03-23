@@ -181,4 +181,12 @@ The project follows a clean separation of concerns:
 
   * **Objective**: Validate that certain product links redirect to incorrect pages or "404" states when using the `problem_user` account.
 
+  * **Technical Implementation**:
+
+    * Used `test.fail()` to explicitly mark the test as an expected failure.
+
+    * Logged in as `problem_user` and attempted to view details for the "Sauce Labs Fleece Jacket".
+
+    * Asserted that the page title matches the clicked product, which fails due to the application's internal "Problem User" logic.
+
   * **Status**: 🟡 **Pending**

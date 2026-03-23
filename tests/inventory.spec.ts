@@ -111,5 +111,15 @@ test.describe('Product Inventory Suite', () => {
     const expectedOrder = [...pricesBefore].sort((a, b) => a - b);
 
     await expect(pricesAfter).toEqual(expectedOrder);
-  })
+  });
+
+  test('SCEE-22: should verify broken links on Product Detail page', async ({ page }) => {
+    test.fail();
+    const productName = "Sauce Labs Fleece Jacket";
+
+    await loginPage.login('problem_user', 'secret_sauce');
+    await inventoryPage.openProductDetails(productName);
+
+    await expect(productDetailsPage.itemName).toHaveText(productName)
+  });
 })
