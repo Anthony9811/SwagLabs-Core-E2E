@@ -31,10 +31,10 @@ export class InventoryPage extends BasePage {
   }
 
   async openProductDetails(productName: string) {
-    this.inventoryItems
+    await this.inventoryItems
       .filter({ hasText: productName })
       .getByTestId('inventory-item-name')
-      .click();
+      .click({ force: true });
   }
 
   getItemPriceByIndex(index: number) {

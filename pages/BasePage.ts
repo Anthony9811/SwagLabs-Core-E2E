@@ -37,7 +37,7 @@ export class BasePage {
   }
 
   async backToProducts() {
-    this.backToProductsButton.click();
+    await this.backToProductsButton.click();
   }
 
   /**
