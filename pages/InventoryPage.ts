@@ -5,12 +5,14 @@ export class InventoryPage extends BasePage {
   readonly inventoryItems;
   readonly productSort;
   readonly pageTitle;
+  readonly itemPrice;
 
   constructor(page: Page) {
     super(page);
     this.inventoryItems = page.getByTestId('inventory-item');
     this.productSort = page.getByTestId('product-sort-container');
     this.pageTitle = page.getByTestId('title');
+    this.itemPrice = page.getByTestId('inventory-item-price');
   }
 
   async addProductToCart(productName: string) {
@@ -37,6 +39,11 @@ export class InventoryPage extends BasePage {
       .click({ force: true });
   }
 
+  async getAllItemPrices(): Promise<number[]> {
+    const prices = await this.itemPrices.allTextContents();
+    return prices.map(price => parseFloat(price.replace('$', '')));
+  }
+
   getItemPriceByIndex(index: number) {
     return this.inventoryItems.nth(index).getByTestId('inventory-item-price');
   }
@@ -46,4 +53,10 @@ export class InventoryPage extends BasePage {
       .filter({ hasText: productName })
       .getByRole('button', { name: /remove/i }) //The i is to ignore whether it's uppercase or lowercase
   }
+
+  get itemPrices() {
+    return this.itemPrice;
+  }
+
 }
+

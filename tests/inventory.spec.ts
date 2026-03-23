@@ -80,14 +80,36 @@ test.describe('Product Inventory Suite', () => {
 
   test('SCEE-17: should verify burger menu functionality in mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    
+
     await loginPage.login('standard_user', 'secret_sauce');
     await inventoryPage.openMenu();
 
     await expect(inventoryPage.logoutLink).toBeVisible();
 
     await inventoryPage.closeMenu();
-    
+
     await expect(inventoryPage.pageTitle).toHaveText('Products');
+  });
+
+  test('SCEE-20: should verify sorting failure with problem user', async ({ page }) => {
+    test.fail();
+
+    await loginPage.login('problem_user', 'secret_sauce');
+
+    // 1. Captures the initial state of the prices as numbers
+    const pricesBefore = await inventoryPage.getAllItemPrices();
+
+    await inventoryPage.sortBy('lohi');
+
+    // 2. Captures the new state of the prices after the action
+    const pricesAfter = await inventoryPage.getAllItemPrices();
+
+    /**
+     * [...pricesBefore]: Creates a copy so the original array isn't changed
+     * .sort((a, b) => a - b) forces a mathematical ascending sort
+     */
+    const expectedOrder = [...pricesBefore].sort((a, b) => a - b);
+
+    await expect(pricesAfter).toEqual(expectedOrder);
   })
 })

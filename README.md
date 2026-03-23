@@ -160,12 +160,25 @@ The project follows a clean separation of concerns:
 
 * **SCEE-20: Verify sorting failure with Problem User**
 
-  * **Objective**: Document the functional bug where the "Sort" dropdown fails to reorder items for the problem_user.
+  * **Objective**: Document the functional bug where the "Sort" dropdown fails to reorder items for the `problem_user`.
 
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**:
+
+    * **Data Extraction**: Created a utility to scrape all prices from the UI, stripping currency symbols and converting them to floats for mathematical comparison.
+
+    * **Reference Modeling**: Used the JavaScript spread operator `[...]` and a numeric comparator `(a, b) => a - b` to generate a "Perfect Order" array from the initial page state.
+
+    * **Validation**: Compared the actual UI state after sorting against the reference model.
+  
+  * **Lessons Learned**: 
+    * **Data Integrity in Assertions**: When testing sorting functionality, I implemented a non-destructive sorting logic using the spread operator. This ensures that the 'Initial State' data remains intact for comparison against the 'Post-Action' UI state, preventing false positives caused by reference-variable mutation.
+
+    * Array Mutation: Learned the importance of shallow copying arrays before sorting to maintain the integrity of the original "Before" snapshot.
+
+  * **Status**: 🟢 **Complete (Marked as Known Failure)**
 
 * **SCEE-22: Verify broken links on Product Detail page**
 
-  * **Objective**: Validate that certain product links redirect to incorrect pages or "404" states when using the problem_user account.
+  * **Objective**: Validate that certain product links redirect to incorrect pages or "404" states when using the `problem_user` account.
 
   * **Status**: 🟡 **Pending**
