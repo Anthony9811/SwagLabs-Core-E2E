@@ -198,11 +198,18 @@ The project follows a clean separation of concerns:
 
 * **SCEE-10: Enter personal information in checkout flow**
   * **Objective**: Validate that the "Your Information" form accepts valid user data and allows progression to the checkout overview.
-  * **Status**: 🟡 **Pending**
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-11: Verify order overview and price calculations**
   * **Objective**: Ensure that the checkout overview page correctly displays the items, calculates the subtotal, adds the tax, and displays the final total.
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**:
+
+    * **POM-Based Validation**: Implemented `getExpectedTotal()` and `getActualTotalAmount()` within the `CheckoutOverviewPage` to keep the test script focused on assertions.
+
+    * **Encapsulated Math**: Centralized the 8% tax calculation logic and string-to-float conversion (stripping "Total: $") inside the Page Object.
+
+    * **Precision Handling**: Utilized `toFixed(2)` and `parseFloat` to ensure mathematical accuracy across the subtotal and grand total.
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-12: Complete purchase and verify success message**
   * **Objective**: Validate the final step of the checkout process, ensuring the order is submitted and the user receives a "Thank You" confirmation.
