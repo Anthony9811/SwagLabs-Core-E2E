@@ -9,8 +9,6 @@ The goal was to move beyond a simple "Happy Path" script. This framework validat
 
 * **Known Anomalies**: Programmatically catching glitches from the `problem_user` and `error_user` profiles.
 
-* **Manual-to-Automation Bridge**: Direct reporting link to Qase.io.
-
 # 🚀 Continuous Integration
 This project utilizes GitHub Actions to ensure code quality and cross-browser compatibility with every change.
 
@@ -189,4 +187,38 @@ The project follows a clean separation of concerns:
 
     * Asserted that the page title matches the clicked product, which fails due to the application's internal "Problem User" logic.
 
+  * **Status**: 🟢 **Complete (Marked as Known Failure)**
+
+### 🔐 Cart & Checkout Suite (Project Code: SCEE)
+
+* **SCEE-9: Add multiple items to cart and verify badge count**
+  * **Objective**: Validate that the shopping cart correctly aggregates multiple different items and reflects the total count in the header badge.  
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-10: Enter personal information in checkout flow**
+  * **Objective**: Validate that the "Your Information" form accepts valid user data and allows progression to the checkout overview.
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-11: Verify order overview and price calculations**
+  * **Objective**: Ensure that the checkout overview page correctly displays the items, calculates the subtotal, adds the tax, and displays the final total.
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-12: Complete purchase and verify success message**
+  * **Objective**: Validate the final step of the checkout process, ensuring the order is submitted and the user receives a "Thank You" confirmation.
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-13: Cancel checkout and return to inventory**
+  * **Objective**: Ensure that the "Cancel" button on the checkout information page correctly aborts the transaction and returns the user to the cart or inventory without saving data.
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-14: Attempt checkout with an empty cart**
+  * **Objective**: Validate system behavior when a user attempts to proceed to checkout without any items in the shopping cart.
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-15: Verify cart items persist after logout and login**
+  * **Objective**: Ensure that items added to the cart remain saved when a user logs out and logs back in during the same session.
+  * **Status**: 🟡 **Pending**
+
+* **SCEE-21: Verify Last Name field "Lock" for Error User**
+  * **Objective**: Document the specific functional defect where the "Last Name" field is non-interactive for the `error_user`.
   * **Status**: 🟡 **Pending**
