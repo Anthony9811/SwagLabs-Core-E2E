@@ -32,7 +32,7 @@ export class CheckoutOverviewPage extends BasePage {
 
   async getExpectedTotal(): Promise<number> {
     const subtotal = await this.getSubtotalAmount();
-    const tax = parseFloat((subtotal * 0.08).toFixed(2));
+    const tax = parseFloat((subtotal * 0.08).toFixed(2)); //rounds the number to exactly 2 decimals
     return subtotal + tax;
   }
 
