@@ -17,7 +17,7 @@ test.describe('Product Inventory Suite', () => {
     const skipStandardLogin = testInfo.title.includes('SCEE-22') || testInfo.title.includes('SCEE-20');
 
     if (!skipStandardLogin) {
-        await loginPage.login('standard_user', 'secret_sauce');
+      await loginPage.login('standard_user', 'secret_sauce');
     }
   });
 
