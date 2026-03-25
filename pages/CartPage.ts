@@ -13,7 +13,7 @@ export class CartPage extends BasePage {
   }
 
   async goToCheckout() {
-    this.checkoutButton.click();
+    await this.checkoutButton.click();
   }
 
   get cartItems() {

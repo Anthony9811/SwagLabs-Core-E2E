@@ -235,7 +235,9 @@ The project follows a clean separation of concerns:
 
 * **SCEE-14: Attempt checkout with an empty cart**
   * **Objective**: Validate system behavior when a user attempts to proceed to checkout without any items in the shopping cart.
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**:
+    * **Assertion Strategy**: Asserted that the user remains on `cart.html` after clicking checkout; the resulting failure serves as automated proof of the defect.
+  * **Status**: 🟢 **Complete (Marked as Known Failure)**
 
 * **SCEE-15: Verify cart items persist after logout and login**
   * **Objective**: Ensure that items added to the cart remain saved when a user logs out and logs back in during the same session.

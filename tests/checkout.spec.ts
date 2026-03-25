@@ -101,5 +101,19 @@ test.describe('Cart & Checkout Suite', () => {
     await expect(cartPage.cartItems.filter({ hasText: product })).toBeVisible();
   });
 
+  test.only('SCEE-14: should attempt checkout with an empty cart', async ({ page }) => {
+    test.fail(true, 'Bug: Application allows checkout with an empty cart.');
 
+    await inventoryPage.goToCart();
+
+    await expect(page).toHaveURL(/.*cart.html/);
+
+    await cartPage.goToCheckout();
+
+    /** 
+     * ASSERT THE REQUIREMENT: We should still be on the cart page.
+     * Because the app actually redirects us, THIS assertion will fail
+     * */
+    await expect(page).toHaveURL(/.*cart.html/);
+  });
 })
