@@ -191,8 +191,9 @@ The project follows a clean separation of concerns:
 
 ### 🔐 Cart & Checkout Suite (Project Code: SCEE)
 
-* **SCEE-9: Add multiple items to cart and verify badge count**
-  * **Objective**: Validate that the shopping cart correctly aggregates multiple different items and reflects the total count in the header badge. 
+* **SCEE-9: Add multiple items to cart and verify their presence**
+  * **Objective**: Validates that the shopping cart correctly aggregates multiple different items and reflects them in the cart.
+
   *  **Technical Implementation**: Utilized an array-based loop to add multiple products and verified state transitions via `getRemoveButtonByProductName`. Concluded with a cart-page redirection and content validation using filtered locators.
   * **Status**: 🟢 **Complete**
 

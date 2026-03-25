@@ -25,7 +25,7 @@ test.describe('Cart & Checkout Suite', () => {
     await loginPage.login('standard_user', 'secret_sauce');
   });
 
-  test('SCEE-9: should add multiple items to cart and verify badge count', async ({ page }) => {
+  test.only('SCEE-9: should add multiple items to cart and verify badge count', async ({ page }) => {
 
     const products = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
 
@@ -40,6 +40,8 @@ test.describe('Cart & Checkout Suite', () => {
     for (const product of products) {
       await expect(cartPage.cartItems.filter({ hasText: product })).toBeVisible();
     }
+
+    await expect(cartPage.cartBadge).toHaveText(products.length.toString());
   });
 
   test('SCEE-10: should enter personal information in chechout flow', async ({ page }) => {
@@ -83,5 +85,19 @@ test.describe('Cart & Checkout Suite', () => {
 
     await checkoutCompletePage.goBackToHome()
     await expect(page).toHaveURL(/.*inventory.html/);
+  });
+
+  test('SCEE-13: should cancel checkout and return to inventory', async ({ page }) => {
+    const product = 'Sauce Labs Backpack';
+
+    await inventoryPage.addProductToCart('Sauce Labs Backpack');
+    await inventoryPage.goToCart();
+
+    await cartPage.goToCheckout();
+    await checkoutPage.checkout('John', '', '');
+
+    await checkoutPage.cancelCheckout();
+
+    await expect(cartPage.cartItems.filter({ hasText: product })).toBeVisible();
   })
 })

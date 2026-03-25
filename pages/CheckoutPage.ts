@@ -7,6 +7,7 @@ export class CheckoutPage extends BasePage {
   private readonly lastNameField;
   private readonly postalCodeField;
   private readonly continueButton;
+  private readonly cancelButton;
 
   constructor(page: Page) {
     super(page);
@@ -14,6 +15,7 @@ export class CheckoutPage extends BasePage {
     this.lastNameField = page.getByTestId('lastName');
     this.postalCodeField = page.getByTestId('postalCode');
     this.continueButton = page.getByTestId('continue');
+    this.cancelButton = page.getByTestId('cancel');
   }
 
   async checkout(firstName: string, lastName: string, zipCode: string) {
@@ -21,5 +23,9 @@ export class CheckoutPage extends BasePage {
     await this.lastNameField.fill(lastName);
     await this.postalCodeField.fill(zipCode);
     await this.continueButton.click();
+  }
+
+  async cancelCheckout() {
+    await this.cancelButton.click();
   }
 }
