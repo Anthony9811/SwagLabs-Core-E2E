@@ -1,6 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 
 export class BasePage {
+  readonly page: Page;
   readonly cartButton;
   readonly cartBadge;
   readonly menuButton;
@@ -13,6 +14,7 @@ export class BasePage {
 
 
   constructor(page: Page) {
+    this.page = page; 
     this.cartButton = page.getByTestId('shopping-cart-link');
     this.cartBadge = page.getByTestId('shopping-cart-badge');
     this.menuButton = page.getByRole('button', { name: 'Open Menu' });
