@@ -217,15 +217,21 @@ The project follows a clean separation of concerns:
 
   * **Technical Implementation**:
 
-  * **Modular POM**: Developed `CheckoutCompletePage.ts` to manage the final confirmation state independently of the checkout funnel.
+    * **Modular POM**: Developed `CheckoutCompletePage.ts` to manage the final confirmation state independently of the checkout funnel.
 
-  * **End-to-End Navigation**: Automated the "Back Home" redirection and utilized URL assertions to confirm a safe return to the primary Inventory page.
+    * **End-to-End Navigation**: Automated the "Back Home" redirection and utilized URL assertions to confirm a safe return to the primary Inventory page.
 
   * **Status**: 🟢 **Complete**
 
 * **SCEE-13: Cancel checkout and return to inventory**
   * **Objective**: Ensure that the "Cancel" button on the checkout information page correctly aborts the transaction and returns the user to the cart or inventory without saving data.
-  * **Status**: 🟡 **Pending**
+  * **Technical implementation**:
+    * **State Persistence**: Verified that canceling the transaction does not clear the session cart by asserting the visibility of products on the `CartPage` post-cancellation.
+
+    * **POM Integration**: Utilized the `cancelCheckout()` method within the `CheckoutPage` class to encapsulate the interaction with the "Cancel" button.
+
+    * **Locator Filtering**: Leveraged Playwright's `.filter({ hasText: product })` locator strategy to precisely identify and verify the items remaining in the list.
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-14: Attempt checkout with an empty cart**
   * **Objective**: Validate system behavior when a user attempts to proceed to checkout without any items in the shopping cart.

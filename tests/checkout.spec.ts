@@ -25,7 +25,7 @@ test.describe('Cart & Checkout Suite', () => {
     await loginPage.login('standard_user', 'secret_sauce');
   });
 
-  test.only('SCEE-9: should add multiple items to cart and verify badge count', async ({ page }) => {
+  test('SCEE-9: should add multiple items to cart and verify badge count', async ({ page }) => {
 
     const products = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
 
@@ -99,5 +99,7 @@ test.describe('Cart & Checkout Suite', () => {
     await checkoutPage.cancelCheckout();
 
     await expect(cartPage.cartItems.filter({ hasText: product })).toBeVisible();
-  })
+  });
+
+
 })
