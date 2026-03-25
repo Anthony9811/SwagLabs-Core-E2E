@@ -101,7 +101,7 @@ test.describe('Cart & Checkout Suite', () => {
     await expect(cartPage.cartItems.filter({ hasText: product })).toBeVisible();
   });
 
-  test.only('SCEE-14: should attempt checkout with an empty cart', async ({ page }) => {
+  test('SCEE-14: should attempt checkout with an empty cart', async ({ page }) => {
     test.fail(true, 'Bug: Application allows checkout with an empty cart.');
 
     await inventoryPage.goToCart();
