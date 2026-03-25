@@ -14,6 +14,8 @@ test.describe('Cart & Checkout Suite', () => {
   let checkoutOverviewPage: CheckoutOverviewPage;
   let checkoutCompletePage: CheckoutCompletePage;
 
+  let username = 'standard_user';
+
   test.beforeEach(async ({ page }, testInfo) => {
     loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
@@ -24,13 +26,16 @@ test.describe('Cart & Checkout Suite', () => {
 
     await loginPage.navigateTo();
 
-    if (!testInfo.tags.includes('@skipStandardLogin')) {
-        await loginPage.login('standard_user', 'secret_sauce');
+    if (testInfo.tags.includes('@errorUser')) {
+      username = 'error_user';
     }
-    
+
+    await loginPage.login(username, 'secret_sauce');
+
     if (!testInfo.tags.includes('@skipAddingProduct')) {
-        await inventoryPage.addProductToCart('Sauce Labs Backpack');
+      await inventoryPage.addProductToCart('Sauce Labs Backpack');
     }
+
   });
 
   test('SCEE-9: should add multiple items to cart and verify badge count', { tag: '@skipAddingProduct' }, async ({ page }) => {
@@ -93,7 +98,7 @@ test.describe('Cart & Checkout Suite', () => {
   });
 
   test('SCEE-13: should cancel checkout and return to cart', { tag: '@skipAddingProduct' }, async ({ page }) => {
-    
+
     const product = 'Sauce Labs Backpack';
 
     await inventoryPage.addProductToCart(product);
@@ -135,5 +140,20 @@ test.describe('Cart & Checkout Suite', () => {
 
     await inventoryPage.goToCart();
     await expect(cartPage.cartItems.filter({ hasText: 'Sauce Labs Backpack' })).toBeVisible();
+  });
+
+  test('SCEE-21: should verify a last name field "lock" for error_user', { tag: ['@errorUser'] }, async ({ page }) => {
+
+    await inventoryPage.goToCart();
+
+    await expect(cartPage.cartItems.filter({ hasText: 'Sauce Labs Backpack' })).toBeVisible();
+
+    await cartPage.goToCheckout();
+    await expect(page).toHaveURL(/.*checkout-step-one.html/);
+
+    await checkoutPage.checkout('John', 'Doe', '12345');
+
+    test.fail(true, 'Bug: User cannot type into the last name field of the checkout page.');
+    await expect(checkoutPage.lastNameField).toBeEditable();
   });
 })

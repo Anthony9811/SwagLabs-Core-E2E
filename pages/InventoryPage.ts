@@ -16,9 +16,12 @@ export class InventoryPage extends BasePage {
   }
 
   async addProductToCart(productName: string) {
-    await this.inventoryItems.filter({ hasText: productName })
-      .getByRole('button', { name: 'Add to cart' })
-      .click({ force: true });
+    const addButton = this.inventoryItems.filter({ hasText: productName })
+      .getByRole('button', { name: 'Add to cart' });
+      
+    if (await addButton.textContent() === 'Add to cart') {
+      await addButton.click();
+    }
   }
 
   /**

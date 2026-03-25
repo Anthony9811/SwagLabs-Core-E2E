@@ -252,4 +252,6 @@ The project follows a clean separation of concerns:
 
 * **SCEE-21: Verify Last Name field "Lock" for Error User**
   * **Objective**: Document the specific functional defect where the "Last Name" field is non-interactive for the `error_user`.
-  * **Status**: 🟡 **Pending**
+  * Technical Implementation:
+    * **Metadata-Driven Setup**: Utilized the `@errorUser` tag to trigger the custom credential flow within the global setup.
+  * **Status**: 🟢 **Complete (Marked as Known Failure)**

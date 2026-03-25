@@ -4,7 +4,7 @@ import { BasePage } from "./BasePage";
 
 export class CheckoutPage extends BasePage {
   private readonly firstNameField;
-  private readonly lastNameField;
+  readonly lastNameField;
   private readonly postalCodeField;
   private readonly continueButton;
   private readonly cancelButton;

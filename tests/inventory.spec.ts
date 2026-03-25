@@ -91,7 +91,7 @@ test.describe('Product Inventory Suite', () => {
   });
 
   test('SCEE-20: should verify sorting failure with problem user', async ({ page }) => {
-    test.fail();
+    test.fail(true, 'Bug: The order of items does not change, or it changes to an incorrect sequence.');
 
     await loginPage.login('problem_user', 'secret_sauce');
 
@@ -113,7 +113,7 @@ test.describe('Product Inventory Suite', () => {
   });
 
   test('SCEE-22: should verify broken links on Product Detail page', async ({ page }) => {
-    test.fail();
+    test.fail(true, 'Bug: The product name appears as item not found.');
     const productName = "Sauce Labs Fleece Jacket";
 
     await loginPage.login('problem_user', 'secret_sauce');

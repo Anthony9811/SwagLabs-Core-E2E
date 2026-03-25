@@ -31,7 +31,7 @@ test.describe('Authentication Suite', () => {
   });
 
   test('SCEE-18: should verify ui anomalies with problem user', async ({ page }) => {
-    test.fail();
+    test.fail(true, 'Bug: Images should show the actual products, but for this user, they all display a "dog" placeholder image.');
     await loginPage.login('problem_user', 'secret_sauce');
 
     const backpackImage = page
@@ -44,7 +44,7 @@ test.describe('Authentication Suite', () => {
   });
 
   test('SCEE-19: should verify functional failures with error user', async ({ page }) => {
-    test.fail();
+    test.fail(true, 'Bug: The button remains "Add to Cart" and does not update, or throws a console error.');
     await loginPage.login('error_user', 'secret_sauce');
 
     await inventoryPage.addProductToCart('Sauce Labs Backpack');
