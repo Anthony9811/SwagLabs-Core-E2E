@@ -223,7 +223,7 @@ The project follows a clean separation of concerns:
 
   * **Status**: 🟢 **Complete**
 
-* **SCEE-13: Cancel checkout and return to inventory**
+* **SCEE-13: Cancel checkout and return to cart**
   * **Objective**: Ensure that the "Cancel" button on the checkout information page correctly aborts the transaction and returns the user to the cart or inventory without saving data.
   * **Technical implementation**:
     * **State Persistence**: Verified that canceling the transaction does not clear the session cart by asserting the visibility of products on the `CartPage` post-cancellation.
@@ -241,7 +241,14 @@ The project follows a clean separation of concerns:
 
 * **SCEE-15: Verify cart items persist after logout and login**
   * **Objective**: Ensure that items added to the cart remain saved when a user logs out and logs back in during the same session.
-  * **Status**: 🟡 **Pending**
+  * **Technical Implementation**:
+
+    * **Session Continuity**: Validated that the `cartBadge` retains its state after performing a `logout()` and a subsequent `login()` with standard credentials.
+
+    * **Deep Link Verification**: Navigated to the `CartPage` post-authentication to confirm the specific inventory item persists in the UI.
+
+    * **Optimized Setup**: Integrated the test into a refactored `beforeEach` hook that uses conditional logic to manage initial cart states, improving suite maintainability.
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-21: Verify Last Name field "Lock" for Error User**
   * **Objective**: Document the specific functional defect where the "Last Name" field is non-interactive for the `error_user`.

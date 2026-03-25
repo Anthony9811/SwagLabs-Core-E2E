@@ -7,7 +7,6 @@ export class BasePage {
   readonly menuButton;
   readonly logoutLink;
   readonly allItemsLink;
-  readonly cartBadgeNumber;
   readonly closeMenuButton;
   private readonly resetAppStateLink;
   private readonly backToProductsButton; 
@@ -21,7 +20,6 @@ export class BasePage {
     this.logoutLink = page.getByTestId('logout-sidebar-link');
     this.allItemsLink = page.getByTestId('inventory-sidebar-link');
     this.resetAppStateLink = page.getByTestId('reset-sidebar-link');
-    this.cartBadgeNumber = page.getByTestId('shopping-cart-badge');
     this.backToProductsButton = page.getByTestId('back-to-products');
     this.closeMenuButton = page.locator('#react-burger-cross-btn');
   }

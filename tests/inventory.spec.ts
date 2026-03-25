@@ -50,11 +50,11 @@ test.describe('Product Inventory Suite', () => {
   test('SCEE-7: should reset app state via sidebar menu', async ({ page }) => {
     await inventoryPage.addProductToCart('Sauce Labs Backpack');
 
-    await expect(inventoryPage.cartBadgeNumber).toBeVisible();
+    await expect(inventoryPage.cartBadge).toBeVisible();
 
     await inventoryPage.resetAppState();
 
-    await expect(inventoryPage.cartBadgeNumber).toBeHidden();
+    await expect(inventoryPage.cartBadge).toBeHidden();
   });
 
   test('SCEE-8: should verify twitter social link in footer', async ({ page, context }) => {
