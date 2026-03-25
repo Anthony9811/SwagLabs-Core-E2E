@@ -23,18 +23,17 @@ test.describe('Cart & Checkout Suite', () => {
     checkoutCompletePage = new CheckoutCompletePage(page);
 
     await loginPage.navigateTo();
-    await loginPage.login('standard_user', 'secret_sauce');
 
-    const skipAddingProduct = testInfo.title.includes('SCEE-9')
-      || testInfo.title.includes('SCEE-13')
-      || testInfo.title.includes('SCEE-14');
-
-    if (!skipAddingProduct) {
-      await inventoryPage.addProductToCart('Sauce Labs Backpack');
+    if (!testInfo.tags.includes('@skipStandardLogin')) {
+        await loginPage.login('standard_user', 'secret_sauce');
+    }
+    
+    if (!testInfo.tags.includes('@skipAddingProduct')) {
+        await inventoryPage.addProductToCart('Sauce Labs Backpack');
     }
   });
 
-  test('SCEE-9: should add multiple items to cart and verify badge count', async ({ page }) => {
+  test('SCEE-9: should add multiple items to cart and verify badge count', { tag: '@skipAddingProduct' }, async ({ page }) => {
 
     const products = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
 
@@ -53,7 +52,7 @@ test.describe('Cart & Checkout Suite', () => {
     await expect(cartPage.cartBadge).toHaveText(products.length.toString());
   });
 
-  test('SCEE-10: should enter personal information in chechout flow', async ({ page }) => {
+  test('SCEE-10: should enter personal information in checkout flow', async ({ page }) => {
     await inventoryPage.goToCart();
 
     await expect(page).toHaveURL(/.*cart.html/);
@@ -93,7 +92,8 @@ test.describe('Cart & Checkout Suite', () => {
     await expect(page).toHaveURL(/.*inventory.html/);
   });
 
-  test('SCEE-13: should cancel checkout and return to cart', async ({ page }) => {
+  test('SCEE-13: should cancel checkout and return to cart', { tag: '@skipAddingProduct' }, async ({ page }) => {
+    
     const product = 'Sauce Labs Backpack';
 
     await inventoryPage.addProductToCart(product);
@@ -107,7 +107,7 @@ test.describe('Cart & Checkout Suite', () => {
     await expect(cartPage.cartItems.filter({ hasText: product })).toBeVisible();
   });
 
-  test('SCEE-14: should attempt checkout with an empty cart', async ({ page }) => {
+  test('SCEE-14: should attempt checkout with an empty cart', { tag: '@skipAddingProduct' }, async ({ page }) => {
     test.fail(true, 'Bug: Application allows checkout with an empty cart.');
 
     await inventoryPage.goToCart();
