@@ -8,6 +8,7 @@ export class CheckoutOverviewPage extends BasePage {
   private readonly subtotal;
   private readonly tax;
   private readonly total;
+  private readonly finishButton;
 
   constructor(page: Page) {
     super(page);
@@ -16,6 +17,7 @@ export class CheckoutOverviewPage extends BasePage {
     this.subtotal = page.getByTestId('subtotal-label');
     this.tax = page.getByTestId('tax-label');
     this.total = page.getByTestId('total-label');
+    this.finishButton = page.getByTestId('finish');
   }
 
   get itemSubtotal() {
@@ -28,6 +30,10 @@ export class CheckoutOverviewPage extends BasePage {
 
   get itemTotal() {
     return this.total;
+  }
+
+  async finishPurchase() {
+    this.finishButton.click();
   }
 
   async getExpectedTotal(): Promise<number> {

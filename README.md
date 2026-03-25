@@ -213,7 +213,14 @@ The project follows a clean separation of concerns:
 
 * **SCEE-12: Complete purchase and verify success message**
   * **Objective**: Validate the final step of the checkout process, ensuring the order is submitted and the user receives a "Thank You" confirmation.
-  * **Status**: 🟡 **Pending**
+
+  * **Technical Implementation**:
+
+  * **Modular POM**: Developed `CheckoutCompletePage.ts` to manage the final confirmation state independently of the checkout funnel.
+
+  * **End-to-End Navigation**: Automated the "Back Home" redirection and utilized URL assertions to confirm a safe return to the primary Inventory page.
+
+  * **Status**: 🟢 **Complete**
 
 * **SCEE-13: Cancel checkout and return to inventory**
   * **Objective**: Ensure that the "Cancel" button on the checkout information page correctly aborts the transaction and returns the user to the cart or inventory without saving data.

@@ -4,6 +4,7 @@ import { InventoryPage } from '../pages/InventoryPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
+import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 
 test.describe('Cart & Checkout Suite', () => {
   let loginPage: LoginPage;
@@ -11,6 +12,7 @@ test.describe('Cart & Checkout Suite', () => {
   let cartPage: CartPage;
   let checkoutPage: CheckoutPage;
   let checkoutOverviewPage: CheckoutOverviewPage;
+  let checkoutCompletePage: CheckoutCompletePage;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -18,11 +20,13 @@ test.describe('Cart & Checkout Suite', () => {
     cartPage = new CartPage(page);
     checkoutPage = new CheckoutPage(page);
     checkoutOverviewPage = new CheckoutOverviewPage(page);
+    checkoutCompletePage = new CheckoutCompletePage(page);
     await loginPage.navigateTo();
     await loginPage.login('standard_user', 'secret_sauce');
   });
 
   test('SCEE-9: should add multiple items to cart and verify badge count', async ({ page }) => {
+
     const products = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
 
     for (const product of products) {
@@ -51,9 +55,10 @@ test.describe('Cart & Checkout Suite', () => {
     await expect(page).toHaveURL(/.*checkout-step-two.html/);
   });
 
-  test('SCEE-11: should verify order overview and price calculations', async ({ page }) => {
+  test('SCEE-11: should verify order overview and price calculations', async () => {
     await inventoryPage.addProductToCart('Sauce Labs Backpack');
     await inventoryPage.goToCart();
+
     await cartPage.goToCheckout();
     await checkoutPage.checkout('John', 'Doe', '12345');
 
@@ -61,5 +66,22 @@ test.describe('Cart & Checkout Suite', () => {
     const actualTotal = await checkoutOverviewPage.getActualTotalAmount();
 
     expect(actualTotal).toBe(expectedTotal);
+  });
+
+  test('SCEE-12: should complete a purchase and verify the success message', async ({ page }) => {
+    await inventoryPage.addProductToCart('Sauce Labs Backpack');
+    await inventoryPage.goToCart();
+
+    await cartPage.goToCheckout();
+    await checkoutPage.checkout('John', 'Doe', '12345');
+
+    await checkoutOverviewPage.finishPurchase();
+
+    await expect(page).toHaveURL(/.*checkout-complete.html/);
+    await expect(checkoutCompletePage.successImage).toBeVisible();
+    await expect(checkoutCompletePage.successTitle).toHaveText('Thank you for your order!');
+
+    await checkoutCompletePage.goBackToHome()
+    await expect(page).toHaveURL(/.*inventory.html/);
   })
 })
