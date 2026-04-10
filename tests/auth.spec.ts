@@ -1,38 +1,23 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { InventoryPage } from '../pages/InventoryPage';
+import { test, expect } from '../fixtures/AuthFixtures';
 
 test.describe('Authentication Suite', () => {
-  let loginPage: LoginPage;
-  let inventoryPage: InventoryPage;
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
-    await loginPage.navigateTo();
-  });
-
-  test('SCEE-1: should login a standard user successfully', async ({ page }) => {
-    await loginPage.login('standard_user', 'secret_sauce');
+  test('SCEE-1: should login a standard user successfully', async ({ loginPage, page }) => {
     await expect(page).toHaveURL(/.*inventory.html/);
   });
 
-  test('SCEE-2: should receive an error message with locked out user', async () => {
-    await loginPage.login('locked_out_user', 'secret_sauce');
+  test('SCEE-2: should receive an error message with locked out user', async ({ loginPage }) => {
     await expect(loginPage.errorMessage).toBeVisible();
     await expect(loginPage.errorMessage).toContainText('Sorry, this user has been locked out.');
   });
 
-  test('SCEE-3: should logout successfully from inventory page', async ({ page }) => {
-    await loginPage.login('standard_user', 'secret_sauce');
+  test('SCEE-3: should logout successfully from inventory page', async ({ loginPage, inventoryPage, page }) => {
     await inventoryPage.logout();
     await expect(page).toHaveURL(/.*www.saucedemo.com/);
     await expect(loginPage.loginButton).toBeVisible();
   });
 
-  test('SCEE-18: should verify ui anomalies with problem user', async ({ page }) => {
+  test('SCEE-18: should verify ui anomalies with problem user', async ({ loginPage, page }) => {
     test.fail(true, 'Bug: Images should show the actual products, but for this user, they all display a "dog" placeholder image.');
-    await loginPage.login('problem_user', 'secret_sauce');
 
     const backpackImage = page
       .getByTestId('inventory-item')
@@ -43,7 +28,7 @@ test.describe('Authentication Suite', () => {
     expect(imageSource).toContain('/static/media/sauce-backpack-1200x1500.0a0b85a385945026062b.jpg');
   });
 
-  test('SCEE-19: should verify functional failures with error user', async ({ page }) => {
+  test('SCEE-19: should verify functional failures with error user', async ({ loginPage, inventoryPage }) => {
     test.fail(true, 'Bug: The button remains "Add to Cart" and does not update, or throws a console error.');
     await loginPage.login('error_user', 'secret_sauce');
 
