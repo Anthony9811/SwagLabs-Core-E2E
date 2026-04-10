@@ -71,35 +71,35 @@ test.describe('Product Inventory Suite', () => {
     await expect(inventoryPage.pageTitle).toHaveText('Products');
   });
 
-  test('SCEE-20: should verify sorting failure with problem user', async ({ loginPage, inventoryPage }) => {
-    test.fail(true, 'Bug: The order of items does not change, or it changes to an incorrect sequence.');
+  test('SCEE-20: should verify sorting failure with problem user',
+    { tag: ['@problemUser'] }, async ({ inventoryPage }) => {
+      test.fail(true, 'Bug: The order of items does not change, or it changes to an incorrect sequence.');
 
-    await loginPage.login('problem_user', 'secret_sauce');
+      // 1. Captures the initial state of the prices as numbers
+      const pricesBefore = await inventoryPage.getAllItemPrices();
 
-    // 1. Captures the initial state of the prices as numbers
-    const pricesBefore = await inventoryPage.getAllItemPrices();
+      await inventoryPage.sortBy('lohi');
 
-    await inventoryPage.sortBy('lohi');
+      // 2. Captures the new state of the prices after the action
+      const pricesAfter = await inventoryPage.getAllItemPrices();
 
-    // 2. Captures the new state of the prices after the action
-    const pricesAfter = await inventoryPage.getAllItemPrices();
+      /**
+       * [...pricesBefore]: Creates a copy so the original array isn't changed
+       * .sort((a, b) => a - b) forces a mathematical ascending sort
+       */
+      const expectedOrder = [...pricesBefore].sort((a, b) => a - b);
 
-    /**
-     * [...pricesBefore]: Creates a copy so the original array isn't changed
-     * .sort((a, b) => a - b) forces a mathematical ascending sort
-     */
-    const expectedOrder = [...pricesBefore].sort((a, b) => a - b);
+      await expect(pricesAfter).toEqual(expectedOrder);
+    });
 
-    await expect(pricesAfter).toEqual(expectedOrder);
-  });
+  test('SCEE-22: should verify broken links on Product Detail page',
+    { tag: ['@problemUser'] }, async ({ loginPage, inventoryPage, productDetailsPage }) => {
+      test.fail(true, 'Bug: The product name appears as item not found.');
+      const productName = "Sauce Labs Fleece Jacket";
 
-  test('SCEE-22: should verify broken links on Product Detail page', async ({ loginPage, inventoryPage, productDetailsPage }) => {
-    test.fail(true, 'Bug: The product name appears as item not found.');
-    const productName = "Sauce Labs Fleece Jacket";
+      await loginPage.login('problem_user', 'secret_sauce');
+      await inventoryPage.openProductDetails(productName);
 
-    await loginPage.login('problem_user', 'secret_sauce');
-    await inventoryPage.openProductDetails(productName);
-
-    await expect(productDetailsPage.itemName).toHaveText(productName)
-  });
+      await expect(productDetailsPage.itemName).toHaveText(productName)
+    });
 })

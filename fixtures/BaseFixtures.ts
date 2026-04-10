@@ -15,7 +15,7 @@ export const test = base.extend<RootFixtures>({
   inventoryPage: async ({ page }, use) => {
     await use(new InventoryPage(page));
   },
-  loggedInState: async ({ loginPage }, use, testInfo) => {
+  loggedInState: async ({ loginPage, inventoryPage }, use, testInfo) => {
     await loginPage.navigateTo();
 
     let username = 'standard_user';
@@ -23,10 +23,11 @@ export const test = base.extend<RootFixtures>({
     if (testInfo.tags.includes('@errorUser')) {
       username = 'error_user';
     } 
-
-    //Assigns problem_user if the test title contains the specific QASE IDs
-    else if (['SCEE-22', 'SCEE-20'].some(id => testInfo.title.includes(id))) {
+    else if (testInfo.tags.includes('@problemUser')) {
       username = 'problem_user';
+    }
+    else if (testInfo.tags.includes('@lockedUser')) {
+      username = 'locked_out_user';
     }
 
     await loginPage.login(username, 'secret_sauce');

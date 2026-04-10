@@ -64,12 +64,7 @@ test.describe('Cart & Checkout Suite', () => {
       await expect(page).toHaveURL(/.*inventory.html/);
     });
 
-  test('SCEE-13: should cancel checkout and return to cart',
-    { tag: '@skipAddingProduct' }, async ({ inventoryPage, cartPage, checkoutPage }) => {
-
-      const product = 'Sauce Labs Backpack';
-
-      await inventoryPage.addProductToCart(product);
+  test('SCEE-13: should cancel checkout and return to cart', async ({ inventoryPage, cartPage, checkoutPage }) => {
       await inventoryPage.goToCart();
 
       await cartPage.goToCheckout();
@@ -77,7 +72,7 @@ test.describe('Cart & Checkout Suite', () => {
 
       await checkoutPage.cancelCheckout();
 
-      await expect(cartPage.cartItems.filter({ hasText: product })).toBeVisible();
+      await expect(cartPage.cartItems.filter({ hasText: 'Sauce Labs Backpack' })).toBeVisible();
     });
 
   test('SCEE-14: should attempt checkout with an empty cart',
@@ -98,7 +93,7 @@ test.describe('Cart & Checkout Suite', () => {
       await expect(page).toHaveURL(/.*cart.html/);
     });
 
-  test('SCEE-15: should verify cart items persist after fogout and login', async ({ loginPage, inventoryPage, cartPage, page }) => {
+  test('SCEE-15: should verify cart items persist after logout and login', async ({ loginPage, inventoryPage, cartPage, page }) => {
     //A product has already been added in the .beforeEach()
     await expect(inventoryPage.cartBadge).toHaveText('1');
 
