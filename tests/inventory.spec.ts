@@ -1,31 +1,12 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { InventoryPage } from '../pages/InventoryPage';
-import { ProductDetailPage } from '../pages/ProductDetailPage';
+import { test, expect } from '../fixtures/InventoryFixtures';
 
 test.describe('Product Inventory Suite', () => {
-  let loginPage: LoginPage;
-  let inventoryPage: InventoryPage;
-  let productDetailsPage: ProductDetailPage;
 
-  test.beforeEach(async ({ page }, testInfo) => {
-    loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
-    productDetailsPage = new ProductDetailPage(page);
-    await loginPage.navigateTo();
-
-    const skipStandardLogin = testInfo.title.includes('SCEE-22') || testInfo.title.includes('SCEE-20');
-
-    if (!skipStandardLogin) {
-      await loginPage.login('standard_user', 'secret_sauce');
-    }
-  });
-
-  test('SCEE-4: should verify total product count on inventory page', async ({ page }) => {
+  test('SCEE-4: should verify total product count on inventory page', async ({ inventoryPage }) => {
     await expect(inventoryPage.inventoryItems).toHaveCount(6);
   });
 
-  test('SCEE-5: should sort products by price in ascending order', async ({ page }) => {
+  test('SCEE-5: should sort products by price in ascending order', async ({ inventoryPage }) => {
     await inventoryPage.sortBy('lohi');
 
     await expect(inventoryPage.getItemPriceByIndex(0)).toHaveText('$7.99');
@@ -33,7 +14,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(inventoryPage.getItemPriceByIndex(5)).toHaveText('$49.99');
   });
 
-  test('SCEE-6: should open an individual product details from inventory', async ({ page }) => {
+  test('SCEE-6: should open an individual product details from inventory', async ({ inventoryPage, productDetailsPage, page }) => {
     const productName = "Sauce Labs Backpack";
 
     await inventoryPage.openProductDetails(productName);
@@ -47,7 +28,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(productDetailsPage.itemPrice).toHaveText('$29.99');
   });
 
-  test('SCEE-7: should reset app state via sidebar menu', async ({ page }) => {
+  test('SCEE-7: should reset app state via sidebar menu', async ({ inventoryPage }) => {
     await inventoryPage.addProductToCart('Sauce Labs Backpack');
 
     await expect(inventoryPage.cartBadge).toBeVisible();
@@ -57,7 +38,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(inventoryPage.cartBadge).toBeHidden();
   });
 
-  test('SCEE-8: should verify twitter social link in footer', async ({ page, context }) => {
+  test('SCEE-8: should verify twitter social link in footer', async ({ inventoryPage, context }) => {
     const newTabPromise = context.waitForEvent('page');
 
     await inventoryPage.goToSocials('twitter');
@@ -67,7 +48,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(newTab).toHaveURL('https://x.com/saucelabs');
   });
 
-  test('SCEE-16: should verify "Back to products" button functionality', async ({ page }) => {
+  test('SCEE-16: should verify "Back to products" button functionality', async ({ inventoryPage, productDetailsPage, page }) => {
     const productName = "Sauce Labs Backpack";
 
     await inventoryPage.openProductDetails(productName);
@@ -78,7 +59,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(inventoryPage.pageTitle).toHaveText('Products');
   });
 
-  test('SCEE-17: should verify burger menu functionality in mobile viewport', async ({ page }) => {
+  test('SCEE-17: should verify burger menu functionality in mobile viewport', async ({ inventoryPage, page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
 
     await inventoryPage.openMenu();
@@ -90,7 +71,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(inventoryPage.pageTitle).toHaveText('Products');
   });
 
-  test('SCEE-20: should verify sorting failure with problem user', async ({ page }) => {
+  test('SCEE-20: should verify sorting failure with problem user', async ({ loginPage, inventoryPage }) => {
     test.fail(true, 'Bug: The order of items does not change, or it changes to an incorrect sequence.');
 
     await loginPage.login('problem_user', 'secret_sauce');
@@ -112,7 +93,7 @@ test.describe('Product Inventory Suite', () => {
     await expect(pricesAfter).toEqual(expectedOrder);
   });
 
-  test('SCEE-22: should verify broken links on Product Detail page', async ({ page }) => {
+  test('SCEE-22: should verify broken links on Product Detail page', async ({ loginPage, inventoryPage, productDetailsPage }) => {
     test.fail(true, 'Bug: The product name appears as item not found.');
     const productName = "Sauce Labs Fleece Jacket";
 

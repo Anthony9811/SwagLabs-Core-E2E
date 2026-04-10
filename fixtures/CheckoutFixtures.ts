@@ -1,28 +1,18 @@
-import { test as base } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { InventoryPage } from '../pages/InventoryPage';
+import { test as base } from './BaseFixtures';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 
-type MyFixtures = {
-  loginPage: LoginPage;
-  inventoryPage: InventoryPage;
+type CheckoutFixtures = {
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
   checkoutOverviewPage: CheckoutOverviewPage;
   checkoutCompletePage: CheckoutCompletePage;
-  preparedState: void; // Logic-only fixture
+  preparedCheckoutState: void; // Logic-only fixture
 };
 
-export const test = base.extend<MyFixtures>({
-  loginPage: async ({ page }, use) => {
-    await use(new LoginPage(page));
-  },
-  inventoryPage: async ({ page }, use) => {
-    await use(new InventoryPage(page));
-  },
+export const test = base.extend<CheckoutFixtures>({
   cartPage: async ({ page }, use) => {
     await use(new CartPage(page));
   },
@@ -37,12 +27,7 @@ export const test = base.extend<MyFixtures>({
   },
 
   // This fixture encapsulates the setup logic
-  preparedState: [async ({ loginPage, inventoryPage }, use, testInfo) => {
-    await loginPage.navigateTo();
-    
-    const username = testInfo.tags.includes('@errorUser') ? 'error_user' : 'standard_user';
-    await loginPage.login(username, 'secret_sauce');
-
+  preparedCheckoutState: [async ({ loggedInState, inventoryPage }, use, testInfo) => {
     if (!testInfo.tags.includes('@skipAddingProduct')) {
       await inventoryPage.addProductToCart('Sauce Labs Backpack');
     }
@@ -51,4 +36,4 @@ export const test = base.extend<MyFixtures>({
   }, { auto: true }], // to make it run automatically
 });
 
-export { expect } from '@playwright/test';
+export { expect } from './BaseFixtures';
